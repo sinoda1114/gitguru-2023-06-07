@@ -1,12 +1,17 @@
+import java.io.*;
+import javax.servlet.*;
 import javax.servlet.http.*;
-import java.io.IOException;
 
-public class XSSServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String comment = request.getParameter("comment");
-        response.setContentType("text/html");
+public class XSSTestServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
 
-        // User's comment is directly included into HTML without any sanitization
-        response.getWriter().print("<html><body>Your comment: " + comment + "</body></html>");
+        String userComment = request.getParameter("comment");
+
+        PrintWriter out = response.getWriter();
+        out.println("<html><body>");
+        out.println("<h1>User Comments</h1>");
+        out.println("<p>" + userComment + "</p>"); // This line could lead to XSS
+        out.println("</body></html>");
     }
 }
