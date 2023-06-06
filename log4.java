@@ -1,12 +1,12 @@
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 
-public class Log4jExample {
-    private static final Logger logger = LogManager.getLogger(Log4jExample.class);
+public class Log4jVulnerability {
+    static final Logger logger = Logger.getLogger(Log4jVulnerability.class);
 
     public static void main(String[] args) {
-        String userInput = args.length > 0 ? args[0] : "";
+        String userSuppliedString = args.length > 0 ? args[0] : "";
 
-        logger.info("User input is: " + userInput);
+        // This line could potentially execute malicious code
+        logger.info("User supplied string: " + userSuppliedString);
     }
 }
